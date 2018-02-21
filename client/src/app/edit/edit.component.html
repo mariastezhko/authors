@@ -1,6 +1,5 @@
-<p>
-  edit works!
-</p>
+<a href [routerLink]="['../../authors']">Home</a>
+
 <form (submit) = "onEdit(editAuthor)" class="postForm">
   {{editAuthor.name}}
   <label>Name:
@@ -8,4 +7,5 @@
   </label>
 
   <input type="submit" value="EDIT" />
+  <button type="button" [routerLink]="['../../authors']">Cancel</button>
 </form>

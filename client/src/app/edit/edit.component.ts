@@ -40,6 +40,7 @@ export class EditComponent implements OnInit {
     let observable = this._httpService.editAuthor(editAuthor);
     observable.subscribe(data => {
       console.log("Got data from post back", data);
+      this.goHome();
     })
   }
   getAuthor(id){
@@ -51,5 +52,8 @@ export class EditComponent implements OnInit {
       console.log("Got the author!", data['author']);
       return data['author'];
     })
+  }
+  goHome() {
+    this._router.navigate(['/authors']);
   }
 }

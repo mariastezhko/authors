@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/authors_db');
 
 var AuthorSchema = new mongoose.Schema({
-    name: String,
+    name: { type: String, required: true, minlength: 3},
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
 mongoose.model('Author', AuthorSchema);
@@ -105,8 +105,8 @@ app.delete('/authors/:id', function(req, res) {
         console.log("Returned error", err);
         res.json({message: "Error", error: err});
       }else {
-        console.log('successfully deleted a task!');
-        res.json({message: "Success", author: author})
+        console.log('successfully deleted an author!');
+        res.json({message: "Success"})
       }
     })
 })
