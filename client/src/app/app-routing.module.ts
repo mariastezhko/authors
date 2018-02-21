@@ -9,7 +9,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: 'authors',component: AuthorsComponent },
   { path: 'new',component: NewComponent },
-  { path: 'edit',component: EditComponent },
+  { path: 'edit/:id',component: EditComponent },
   { path: '', pathMatch: 'full', redirectTo: 'authors' },
   { path: '**', component: PagenotfoundComponent }
 ];

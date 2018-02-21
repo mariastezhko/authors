@@ -1,3 +1,11 @@
 <p>
   new works!
 </p>
+<form (submit) = "onAdd()" class="postForm">
+    <input type="text" name="newAuthor.name" [(ngModel)] = "newAuthor.name"/>
+    <input type="submit" value="Submit" />
+</form>
+<form (submit) = "onCancel()" class="postForm">
+    <input type="submit" value="Cancel" />
+</form>
+<button [routerLink]="['../authors']">Go back</button>

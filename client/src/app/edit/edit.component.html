@@ -1,3 +1,11 @@
 <p>
   edit works!
 </p>
+<form (submit) = "onEdit(editAuthor)" class="postForm">
+  {{editAuthor.name}}
+  <label>Name:
+    <input type="text" name="editAuthor.name" [(ngModel)] = "editAuthor.name" />
+  </label>
+
+  <input type="submit" value="EDIT" />
+</form>

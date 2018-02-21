@@ -3,3 +3,15 @@
 </p>
 <button [routerLink]="['../new']">Add an author</button>
 <a href [routerLink]="['../new']">Add an author</a>
+
+<div *ngFor="let x of authors" >
+  <p *ngIf="x.name">
+    {{x.name}}
+  </p>
+  <form (submit) = "onDelete(x._id)" class="postForm">
+      <input type="submit" value="DELETE" />
+  </form>
+  <button [routerLink]="['../edit', x._id]">EDIT</button>
+
+
+</div>

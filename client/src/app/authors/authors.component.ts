@@ -21,6 +21,7 @@ export class AuthorsComponent implements OnInit {
     this.getAuthors()
   }
   getAuthors(){
+    console.log("Trying to retrieve authors!")
     let observable = this._httpService.getAuthors()
     observable.subscribe(data => {
       console.log("Got our data!", data)
@@ -44,14 +45,7 @@ export class AuthorsComponent implements OnInit {
     console.log("Author name", author.name);
     // Load Edit component
   }
-  // onSubmit(){
-  //   let observable = this._httpService.addTask(this.newTask);
-  //   observable.subscribe(data => {
-  //     console.log("Got data from post back", data);
-  //     this.newTask = {title: "", description: ""}
-  //     this.getAuthors();
-  //   })
-  //}
+
   onDelete(author_id){
     let observable = this._httpService.deleteAuthor(author_id);
     observable.subscribe(data => {
