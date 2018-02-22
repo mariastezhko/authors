@@ -27,4 +27,12 @@ export class HttpService {
     console.log("sending request to backend to add new", newauthor)
     return this._http.post('/authors', newauthor);
   }
+  addQuote(quoteauthor_id, quote){
+    console.log("sending request to backend to add new quote", quoteauthor_id, quote)
+    return this._http.put('/quotes/'+quoteauthor_id, quote);
+  }
+  deleteQuote(quoteauthor_id, quote){
+    console.log("sending request to backend to delete a quote", quoteauthor_id, quote)
+    return this._http.delete('/quotes/'+quoteauthor_id, quote);
+  }
 }

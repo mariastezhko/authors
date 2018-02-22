@@ -11,6 +11,8 @@ import { AuthorsComponent } from './authors/authors.component';
 import { NewComponent } from './new/new.component';
 import { EditComponent } from './edit/edit.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { QuotesComponent } from './quotes/quotes.component';
+import { WriteComponent } from './write/write.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     AuthorsComponent,
     NewComponent,
     EditComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    QuotesComponent,
+    WriteComponent
   ],
   imports: [
     BrowserModule,

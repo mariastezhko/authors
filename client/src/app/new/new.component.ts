@@ -19,7 +19,7 @@ export class NewComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.newAuthor = {name: ""}
+    this.newAuthor = {name: "", quotes: []}
   }
 
   onAdd(){
@@ -33,7 +33,7 @@ export class NewComponent implements OnInit {
         console.log("ERROR IS!!!", this.error);
       }
       else {
-        this.newAuthor = {name: ""}
+        this.newAuthor = {name: "", quotes: []}
         this.goHome();
       }
       //this.getAuthors();

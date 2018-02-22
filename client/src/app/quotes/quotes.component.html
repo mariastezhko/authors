@@ -1,0 +1,17 @@
+<p>
+  quotes works!
+</p>
+<p>Quotes by: {{ quoteAuthor.name }}</p>
+<a href [routerLink]="['../../authors']">Home</a>
+<a href [routerLink]="['../../write', quoteAuthor._id]">Add a quote</a>
+
+<div *ngFor="let quote of quoteAuthor.quotes" >
+  <p *ngIf="quote">
+    {{quote.quote}}
+  </p>
+  <form (submit) = "onDelete(quote)" class="postForm">
+      <input type="submit" value="Delete" />
+  </form>
+
+
+</div>

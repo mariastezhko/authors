@@ -1,0 +1,12 @@
+<p>
+  write works!
+</p>
+<a href [routerLink]="['../quotes']">Home</a>
+<p>Provide a quote for {{ quoteAuthor.name }}</p>
+
+<form (submit) = "onAdd()" class="postForm">
+    <input type="text" name="quote" [(ngModel)] = "quote.quote"/>
+    <input type="submit" value="Submit" />
+</form>
+
+<button [routerLink]="['../../quotes', author_id]">Cancel</button>

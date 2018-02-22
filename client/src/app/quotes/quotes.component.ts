@@ -2,21 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  selector: 'app-quotes',
+  templateUrl: './quotes.component.html',
+  styleUrls: ['./quotes.component.css']
 })
-export class EditComponent implements OnInit {
-  editAuthor = {name: '', quotes: []};
+export class QuotesComponent implements OnInit {
+  quoteAuthor = {name: '', quotes: []};
   author_id = '';
+  quote = {quote: '', rank: 0};
   author = [];
   error = '';
+  quotes = [];
   constructor(
     private _httpService: HttpService,
     private _route: ActivatedRoute,
     private _router: Router
-    ) { }
+  ) { }
 
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
@@ -30,38 +33,31 @@ export class EditComponent implements OnInit {
       observable.subscribe(data => {
         //this.author = data['author'];
         console.log("Got the author!", data['author']);
-        this.editAuthor = data['author'];
-        console.log("AUTHOR", this.editAuthor)
+        this.quoteAuthor = data['author'];
+        console.log("AUTHOR", this.quoteAuthor);
+
       })
 
     })
   }
-  onEdit(editAuthor){
-    console.log("Edit the author", editAuthor._id)
-    let observable = this._httpService.editAuthor(editAuthor);
+  onDelete(quote) {
+    console.log("Sending request to delete a quote", quote)
+    let observable = this._httpService.deleteQuote(this.author_id, quote);
     observable.subscribe(data => {
       console.log("Got data from post back", data);
       if (data['message'] == "Error") {
         console.log("ERROR!!!");
-        this.error = data['error']
+        this.error = data['error'].errors.name.message
         console.log("ERROR IS!!!", this.error);
       }
       else {
-        this.goHome();
+        //this.quoteAuthor = {name: "", quotes: []}
+        //this.goHome();
+        console.log("Successfully deleted a quote");
       }
     })
   }
-  getAuthor(id){
-    console.log("Trying to get author", id)
-    this.author = [];
-    let observable = this._httpService.getAuthor(id)
-    observable.subscribe(data => {
-      //this.author = data['author'];
-      console.log("Got the author!", data['author']);
-      return data['author'];
-    })
-  }
-  goHome() {
-    this._router.navigate(['/authors']);
-  }
+  // goHome() {
+  //   this._router.navigate(['/quotes/'+this.author_id]);
+  // }
 }

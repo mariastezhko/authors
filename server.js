@@ -10,6 +10,7 @@ mongoose.connect('mongodb://localhost/authors_db');
 
 var AuthorSchema = new mongoose.Schema({
     name: { type: String, required: true, minlength: 3},
+    quotes: [{quote: { type: String, required: true, minlength: 3}, rank: Number}]
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
 mongoose.model('Author', AuthorSchema);
@@ -114,6 +115,45 @@ app.delete('/authors/:id', function(req, res) {
       }
     })
 })
+
+app.put('/quotes/:id', function(req, res) {
+    console.log("trying to add a quote on backend", req);
+    let id = req.params.id;
+
+    if (req.body.quote.length < 3) {
+              console.log("QUOTE is TOO SHORT!");
+              res.json({message: "Error", error: "Length of the quote must be at least 3 letters"});
+    }
+    else {
+        Author.update({_id: id}, {$push: {quotes: req.body}}, function(err) {
+          if (err){
+            console.log("Returned error", err);
+            res.json({message: "Error", error: err});
+          }
+          else {
+            console.log('successfully added a quote!');
+            res.json({message: "Success"})
+          }
+        })
+    }
+})
+
+app.delete('/quotes/:id', function(req, res) {
+    console.log("trying to delete a quote on backend", req);
+    let id = req.params.id;
+        Author.update({_id: id}, {$pull: {quotes: req.body}}, function(err) {
+          if (err){
+            console.log("Returned error", err);
+            res.json({message: "Error", error: err});
+          }
+          else {
+            console.log('successfully deleted a quote!');
+            res.json({message: "Success"})
+          }
+        })
+
+})
+
 
 app.all("*", (req,res,next) => {
   res.sendFile(path.resolve("./client/dist/index.html"))
