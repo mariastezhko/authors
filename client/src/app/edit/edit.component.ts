@@ -11,6 +11,7 @@ export class EditComponent implements OnInit {
   editAuthor = {name: ''};
   author_id = '';
   author = [];
+  error = '';
   constructor(
     private _httpService: HttpService,
     private _route: ActivatedRoute,
@@ -40,7 +41,14 @@ export class EditComponent implements OnInit {
     let observable = this._httpService.editAuthor(editAuthor);
     observable.subscribe(data => {
       console.log("Got data from post back", data);
-      this.goHome();
+      if (data['message'] == "Error") {
+        console.log("ERROR!!!");
+        this.error = data['error']
+        console.log("ERROR IS!!!", this.error);
+      }
+      else {
+        this.goHome();
+      }
     })
   }
   getAuthor(id){

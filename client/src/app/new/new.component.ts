@@ -10,6 +10,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class NewComponent implements OnInit {
   newAuthor: any;
+  error = '';
 
   constructor(
     private _httpService: HttpService,
@@ -26,8 +27,15 @@ export class NewComponent implements OnInit {
     let observable = this._httpService.addAuthor(this.newAuthor);
     observable.subscribe(data => {
       console.log("Got data from post back", data);
-      this.newAuthor = {name: ""}
-      this.goHome();
+      if (data['message'] == "Error") {
+        console.log("ERROR!!!");
+        this.error = data['error'].errors.name.message
+        console.log("ERROR IS!!!", this.error);
+      }
+      else {
+        this.newAuthor = {name: ""}
+        this.goHome();
+      }
       //this.getAuthors();
     })
   }

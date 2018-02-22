@@ -1,3 +1,7 @@
+<p *ngIf="error">
+  {{error}}
+</p>
+
 <a href [routerLink]="['../../authors']">Home</a>
 
 <form (submit) = "onEdit(editAuthor)" class="postForm">

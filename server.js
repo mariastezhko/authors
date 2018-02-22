@@ -80,19 +80,23 @@ app.put('/authors/:id', function(req, res) {
         console.log("Returned error", err);
         res.json({message: "Error", error: err});
       } else {
-        if (req.body.name) {
-          author.name = req.body.name;
+        if (req.body.name.length < 3) {
+          console.log("NAME is TOO SHORT!");
+          res.json({message: "Error", error: "Length of the name must be at least 3 letters"});
         }
-        author.save(function(err) {
-          // if there is an error console.log that something went wrong!
-          if (err) {
-              console.log("Returned error", err);
-              res.json({message: "Error", error: err});
-          } else { // else console.log that we did well and then redirect to the root route
-              console.log('successfully edited a task!');
-              res.json({message: "Success", author: author})
-          }
-        })
+        else {
+          author.name = req.body.name;
+          author.save(function(err) {
+            // if there is an error console.log that something went wrong!
+            if (err) {
+                console.log("Returned error", err);
+                res.json({message: "Error", error: err});
+            } else { // else console.log that we did well and then redirect to the root route
+                console.log('successfully edited a task!');
+                res.json({message: "Success", author: author})
+            }
+          })
+        }
       }
     })
 })
