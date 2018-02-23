@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/authors_db');
+mongoose.connect('mongodb://localhost/authors5_db');
 
 var AuthorSchema = new mongoose.Schema({
     name: { type: String, required: true, minlength: 3},
@@ -117,7 +117,7 @@ app.delete('/authors/:id', function(req, res) {
 })
 
 app.put('/quotes/:id', function(req, res) {
-    console.log("trying to add a quote on backend", req);
+    console.log("trying to add a quote on backend", req.body);
     let id = req.params.id;
 
     if (req.body.quote.length < 3) {
@@ -138,22 +138,73 @@ app.put('/quotes/:id', function(req, res) {
     }
 })
 
-app.delete('/quotes/:id', function(req, res) {
-    console.log("trying to delete a quote on backend", req);
+app.delete('/quotes/:id/:quote_id', function(req, res) {
+    console.log("trying to delete a quote on backend", req.params);
+
     let id = req.params.id;
-        Author.update({_id: id}, {$pull: {quotes: req.body}}, function(err) {
-          if (err){
+    let quote_id = req.params.quote_id;
+
+    console.log("Trying to delete quote on backend", quote_id)
+    Author.update({_id: id}, {$pull: {quotes: {_id: quote_id }}}, function(err) {
+    if (err){
             console.log("Returned error", err);
             res.json({message: "Error", error: err});
-          }
-          else {
+    }
+    else {
             console.log('successfully deleted a quote!');
             res.json({message: "Success"})
-          }
-        })
+    }
+    })
 
 })
 
+// app.put('/vote/:id/:quote_id', function(req, res) {
+//
+//     let id = req.params.id;
+//     let quote_id = req.params.quote;
+//     console.log("trying to update a quote on backend", quote_id);
+    // Author.update({_id: id}, {$set: {quotes: {_id: quote_id}, rank: 5}}, function(err) {
+    // if (err){
+    //         console.log("Returned error", err);
+    //         res.json({message: "Error", error: err});
+    // }
+    // else {
+    //         console.log('successfully updated a quote!');
+    //         res.json({message: "Success"})
+    // }
+    // })
+    // Author.findById(id, function(err, author) {
+    //   if (err) {
+    //     console.log("Returned error", err);
+    //     res.json({message: "Error", error: err});
+    //   } else {
+    //     var quotes = author.quotes
+    //     console.log("Quotes by this author:", quotes)
+    //     for (var i=0; i<quotes.length; i++){
+    //       console.log("QUOTE", quotes[i])
+    //       for (x in quotes[i]){
+            // if (x._id == quote_id){
+            //   //console.log("****",author.quotes[i].rank)
+            //   author.quotes[i].rank ++
+            //   author.save(function(err) {
+            //     // if there is an error console.log that something went wrong!
+            //     if (err) {
+            //         console.log("Returned error", err);
+            //         res.json({message: "Error", error: err});
+            //     } else { // else console.log that we did well and then redirect to the root route
+            //         console.log('successfully edited a task!');
+            //         res.json({message: "Success", author: author})
+            //     }
+            //   })
+//             }
+//           }
+//         }
+//         }
+//
+//
+//     })
+//
+// })
 
 app.all("*", (req,res,next) => {
   res.sendFile(path.resolve("./client/dist/index.html"))

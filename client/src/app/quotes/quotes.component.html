@@ -7,11 +7,16 @@
 
 <div *ngFor="let quote of quoteAuthor.quotes" >
   <p *ngIf="quote">
-    {{quote.quote}}
+    Quote: {{quote.quote}} Votes: {{quote.rank}}
   </p>
-  <form (submit) = "onDelete(quote)" class="postForm">
+  <form (submit) = "onDelete(quote._id)" class="postForm">
       <input type="submit" value="Delete" />
   </form>
-
+  <form (submit) = "onVoteUp(quote._id)" class="postForm">
+      <input type="submit" value="Vote Up" />
+  </form>
+  <form (submit) = "onVoteDown(quote)" class="postForm">
+      <input type="submit" value="Vote Down" />
+  </form>
 
 </div>

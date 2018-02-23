@@ -1,7 +1,7 @@
 <p>
   write works!
 </p>
-<a href [routerLink]="['../quotes']">Home</a>
+<a href [routerLink]="['../../quotes', author_id]">Home</a>
 <p>Provide a quote for {{ quoteAuthor.name }}</p>
 
 <form (submit) = "onAdd()" class="postForm">
