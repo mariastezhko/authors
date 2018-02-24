@@ -62,27 +62,28 @@ export class QuotesComponent implements OnInit {
   // goHome() {
   //   this._router.navigate(['/quotes/'+this.author_id]);
   // }
-  // onVoteUp(quote_id) {
-  //   //quote.rank ++;
-  //   console.log("Sending request to backend to update", quote_id)
-  //   let observable = this._httpService.vote(this.author_id, quote_id);
-  //   observable.subscribe(data => {
-  //     console.log("Got data from post back", data);
-  //     if (data['message'] == "Error") {
-  //       console.log("ERROR!!!");
-  //       this.error = data['error'].errors.name.message
-  //       console.log("ERROR IS!!!", this.error);
-  //     }
-  //     else {
-  //       console.log("Successfully updated a quote");
-  //     }
-  //     //this.getAuthors();
-  //   })
-  // }
-  // onVoteDown(quote) {
-  //   quote.rank --;
-  //   console.log("QUOTE RANK", quote)
-  // }
+  onVote(quote_id, up_or_down) {
+    //quote.rank ++;
+    console.log("Sending request to backend to update", quote_id)
+    let observable = this._httpService.vote(this.author_id, quote_id, up_or_down);
+    observable.subscribe(data => {
+      console.log("Got data from post back", data);
+      if (data['message'] == "Error") {
+        console.log("ERROR!!!");
+        this.error = data['error'].errors.name.message
+        console.log("ERROR IS!!!", this.error);
+      }
+      else {
+        console.log("Successfully updated a quote");
+        this.getQuotes()
+      }
+      //this.getAuthors();
+    })
+  }
+  onVoteDown(quote) {
+    quote.rank --;
+    console.log("QUOTE RANK", quote)
+  }
   getQuotes(){
     this._route.params.subscribe((params: Params) => {
       this.author_id = params['id'];
@@ -96,7 +97,7 @@ export class QuotesComponent implements OnInit {
         //this.author = data['author'];
         console.log("Got the author!", data['author']);
         this.quoteAuthor = data['author'];
-        console.log("AUTHOR", this.quoteAuthor);
+        console.log("GOT Quotes for AUTHOR", this.quoteAuthor);
 
       })
 

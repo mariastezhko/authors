@@ -35,8 +35,9 @@ export class HttpService {
     console.log("sending request to backend to delete a quote", quoteauthor_id, quote_id)
     return this._http.delete('/quotes/'+quoteauthor_id+'/'+quote_id);
   }
-  // vote(quoteauthor_id, quote_id){
-  //   console.log("sending request to backend to vote up a quote", quoteauthor_id, quote_id)
-  //   return this._http.put('/vote/'+quoteauthor_id+'/'+quote_id);
-  // }
+  vote(quoteauthor_id, quote_id, up_or_down){
+    console.log("UP OR DOWN", up_or_down)
+    console.log("sending request to backend to vote up a quote", quoteauthor_id, quote_id, up_or_down)
+    return this._http.put('/vote/'+quoteauthor_id+'/'+quote_id+'/'+up_or_down, up_or_down);
+  }
 }

@@ -12,10 +12,10 @@
   <form (submit) = "onDelete(quote._id)" class="postForm">
       <input type="submit" value="Delete" />
   </form>
-  <form (submit) = "onVoteUp(quote._id)" class="postForm">
+  <form (submit) = "onVote(quote._id, 'up')" class="postForm">
       <input type="submit" value="Vote Up" />
   </form>
-  <form (submit) = "onVoteDown(quote)" class="postForm">
+  <form (submit) = "onVote(quote._id, 'down')" class="postForm">
       <input type="submit" value="Vote Down" />
   </form>
 
